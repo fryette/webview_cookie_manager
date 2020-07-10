@@ -7,13 +7,14 @@ class WebviewCookieManager {
   static const MethodChannel _channel =
       const MethodChannel('webview_cookie_manager');
 
+  /// Clear all web view cookies
   static Future<bool> clearCookies() {
     return _channel
         .invokeMethod<bool>('clearCookies')
         .then<bool>((dynamic result) => result);
   }
 
-  /// Read out all cookies, or all cookies for a url when provided
+  /// Read out all cookies, or all cookies for a [currentUrl] when provided
   static Future<List<Cookie>> getCookies([String currentUrl]) {
     return _channel.invokeListMethod<Map<dynamic, dynamic>>(
         'getCookies', <dynamic, dynamic>{
@@ -37,7 +38,7 @@ class WebviewCookieManager {
     });
   }
 
-  /// Set cookies into the web view
+  /// Set [cookies] into the web view
   static Future<void> setCookies(List<Cookie> cookies) {
     final List<Map<String, dynamic>> transferCookies = cookies.map((Cookie c) {
       final Map<String, dynamic> output = <String, dynamic>{
