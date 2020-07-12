@@ -3,6 +3,7 @@ description: Have you been turned into a cookie managment problem? This package 
 version: 1.0.0+2
 repository: https://github.com/amag2511/webview_cookie_manager
 homepage: https://github.com/amag2511/webview_cookie_manager
+issue_tracker: https://github.com/amag2511/webview_cookie_manager/issues
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
