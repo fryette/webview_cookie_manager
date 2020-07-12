@@ -15,6 +15,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final cookieManager = WebviewCookieManager();
+
   final String _url = 'https://youtube.com';
   final String cookieValue = 'some-cookie-value';
   final String domain = 'youtube.com';
@@ -23,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    WebviewCookieManager.clearCookies();
+    cookieManager.clearCookies();
   }
 
   @override
@@ -37,14 +39,14 @@ class _MyAppState extends State<MyApp> {
           initialUrl: _url,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (controller) async {
-            await WebviewCookieManager.setCookies([
+            await cookieManager.setCookies([
               Cookie(cookieName, cookieValue)
                 ..domain = domain
                 ..expires = DateTime.now().add(Duration(days: 10))
             ]);
           },
           onPageFinished: (_) async {
-            final gotCookies = await WebviewCookieManager.getCookies(_url);
+            final gotCookies = await cookieManager.getCookies(_url);
             for (var item in gotCookies) {
               print(item);
             }
