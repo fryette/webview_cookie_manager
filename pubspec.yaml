@@ -1,7 +1,7 @@
 name: webview_cookie_manager
 description: A new flutter plugin project.
 version: 1.0.0+1
-author: amag2511
+repository: https://github.com/amag2511/webview_cookie_manager
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

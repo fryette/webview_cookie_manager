@@ -1,14 +1,39 @@
-# webview_cookie_manager
+# Webview Cookie Manager
+[![pub package](https://img.shields.io/pub/v/webview_cookie_manager.svg)](https://pub.dartlang.org/packages/webview_cookie_manager)
 
-A new flutter plugin project.
+A flutter library to manager your web cookies for Android(API level 9) and iOS(11+).
 
-## Getting Started
+## Get started iOS
+Set minimum version for iOS to 11.0
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## How to use
+The WebCookieManager can be used directly or together with [webview_flutter](https://pub.dev/packages/webview_flutter).
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Get cookies:
+```dart
+final cookieManager = WebviewCookieManager();
+final gotCookies = await cookieManager.getCookies('https://youtube.com');
+            for (var item in gotCookies) {
+              print(item);
+            }
+ ```
+
+ Set cookie
+ ```dart
+final cookieManager = WebviewCookieManager();
+await cookieManager.setCookies([
+              Cookie('cookieName', 'cookieValue')
+                ..domain = 'youtube.com'
+                ..expires = DateTime.now().add(Duration(days: 10))
+            ]);
+ ```
+ Set cookie
+ ```dart
+final cookieManager = WebviewCookieManager();
+await cookieManager.clearCookies();
+ ```
+
+ For more examples check example folder.
+
+## How it works
+The cookies stores and retrieves using the [httpCookieStore](https://developer.apple.com/documentation/webkit/wkwebsitedatastore/2881956-httpcookiestore) for iOS and [CookieManager](https://developer.android.com/reference/java/net/CookieManager) for Android.
