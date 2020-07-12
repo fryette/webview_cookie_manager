@@ -20,16 +20,14 @@ final gotCookies = await cookieManager.getCookies('https://youtube.com');
 
  Set cookie
  ```dart
-final cookieManager = WebviewCookieManager();
 await cookieManager.setCookies([
               Cookie('cookieName', 'cookieValue')
                 ..domain = 'youtube.com'
                 ..expires = DateTime.now().add(Duration(days: 10))
             ]);
  ```
- Set cookie
+ Clear cookies
  ```dart
-final cookieManager = WebviewCookieManager();
 await cookieManager.clearCookies();
  ```
 
