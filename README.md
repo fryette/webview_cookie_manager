@@ -12,6 +12,7 @@ The WebCookieManager can be used directly or together with [webview_flutter](htt
 Get cookies:
 ```dart
 final cookieManager = WebviewCookieManager();
+
 final gotCookies = await cookieManager.getCookies('https://youtube.com');
 for (var item in gotCookies) {
   print(item);
