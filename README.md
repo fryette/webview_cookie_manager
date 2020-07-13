@@ -13,9 +13,9 @@ Get cookies:
 ```dart
 final cookieManager = WebviewCookieManager();
 final gotCookies = await cookieManager.getCookies('https://youtube.com');
-            for (var item in gotCookies) {
-              print(item);
-            }
+for (var item in gotCookies) {
+  print(item);
+}
  ```
 
  Set cookie
