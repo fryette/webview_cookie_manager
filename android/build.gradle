@@ -1,4 +1,4 @@
-group 'com.example.webview_cookie_manager'
+group 'io.flutter.plugins.webview_cookie_manager'
 version '1.0'
 
 buildscript {

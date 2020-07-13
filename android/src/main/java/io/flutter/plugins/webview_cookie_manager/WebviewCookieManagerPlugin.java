@@ -1,4 +1,4 @@
-package com.example.webview_cookie_manager;
+package io.flutter.plugins.webview_cookie_manager;
 
 import androidx.annotation.NonNull;
 
