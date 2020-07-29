@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
               Cookie(cookieName, cookieValue)
                 ..domain = domain
                 ..expires = DateTime.now().add(Duration(days: 10))
+                ..httpOnly = false
             ]);
           },
           onPageFinished: (_) async {
