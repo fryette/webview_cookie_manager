@@ -25,6 +25,7 @@ await cookieManager.setCookies([
               Cookie('cookieName', 'cookieValue')
                 ..domain = 'youtube.com'
                 ..expires = DateTime.now().add(Duration(days: 10))
+                ..httpOnly = false
             ]);
  ```
  Clear cookies
