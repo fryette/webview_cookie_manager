@@ -34,6 +34,16 @@ await cookieManager.clearCookies();
  ```
 
  For more examples check example folder.
+ 
+ ## Troubleshooting
+ If you are using Objective C, check that PodFile have a flag use_frameworks ([why you need to do it](https://github.com/amag2511/webview_cookie_manager/issues/4#issuecomment-665508540))
+ ```
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+  ..........
+end
+```
 
 ## How it works
 The cookies stores and retrieves using the [httpCookieStore](https://developer.apple.com/documentation/webkit/wkwebsitedatastore/2881956-httpcookiestore) for iOS and [CookieManager](https://developer.android.com/reference/java/net/CookieManager) for Android.
