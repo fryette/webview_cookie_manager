@@ -1,3 +1,8 @@
+## 1.0.1
+
+* Update readme
+* Set minimum iOS version to 11
+
 ## 1.0.0+4
 
 * Improve documentation
