@@ -106,7 +106,7 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
     final String allCookiesString = cookieManager.getCookie(url);
     final ArrayList<String> individualCookieStrings;
     if (allCookiesString==null){
-      individualCookieStrings=new ArrayList<>();
+      individualCookieStrings = new ArrayList<>();
     }else{
       individualCookieStrings =
               new ArrayList<>(Arrays.asList(allCookiesString.split(";")));
