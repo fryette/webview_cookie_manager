@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Fixed Android Cookiemanager null reference exception ([#8](https://github.com/amag2511/webview_cookie_manager/issues/8))
+
 ## 1.0.1
 
 * Update readme
