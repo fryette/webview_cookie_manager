@@ -16,9 +16,6 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
-        case "clearCookies":
-            SwiftWebviewCookieManagerPlugin.clearCookies(result: result)
-            break
         case "getCookies":
             let arguments = call.arguments as! NSDictionary
             let url = arguments["url"] as? String
@@ -31,10 +28,10 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         case "hasCookies":
             SwiftWebviewCookieManagerPlugin.hasCookies(result: result)
             break
-        case "removeCookies":
+        case "clearCookies":
             let arguments = call.arguments as! NSDictionary
             let url = arguments["url"] as? String
-            SwiftWebviewCookieManagerPlugin.removeCookies(url: url, result: result)
+            SwiftWebviewCookieManagerPlugin.clearCookies(url: url, result: result)
             break
         default:
             result(FlutterMethodNotImplemented)
@@ -49,13 +46,21 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         
     }
     
-    public static func clearCookies(result: @escaping FlutterResult) {
+    public static func clearCookies(url: String?, result: @escaping FlutterResult) {
         httpCookieStore!.getAllCookies { (cookies) in
-            for cookie in cookies {
-               httpCookieStore!.delete(cookie, completionHandler: nil)
+            if url == nil {
+                for cookie in cookies {
+                  httpCookieStore!.delete(cookie, completionHandler: nil)
+                }
             }
-            
-            result(true)
+            else {
+                for cookie in cookies {
+                    if cookie.domain.contains(URL(string: url!)!.host!) {
+                        httpCookieStore!.delete(cookie, completionHandler: nil)
+                    }
+                }
+            }
+            result(nil)
         }
     }
     
@@ -104,17 +109,6 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
                 }
             }
             result(cookieList)
-        }
-    }
-    
-    public static func removeCookies(url: String?, result: @escaping FlutterResult) {
-        httpCookieStore!.getAllCookies { (cookies) in
-            for cookie in cookies {
-                if cookie.domain.contains(URL(string: url!)!.host!) {
-                    httpCookieStore!.delete(cookie, completionHandler: nil)
-                }
-            }
-            result(true)
         }
     }
     
