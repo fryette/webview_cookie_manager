@@ -16,6 +16,13 @@ class WebviewCookieManager {
 
   static WebviewCookieManager _instance;
 
+  /// Check some cookies web view cookies
+  Future<bool> hasCookies() {
+    return _channel
+        .invokeMethod<bool>('hasCookies')
+        .then<bool>((dynamic result) => result);
+  }
+
   /// Clear all web view cookies
   Future<bool> clearCookies() {
     return _channel
