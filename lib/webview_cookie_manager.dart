@@ -16,18 +16,11 @@ class WebviewCookieManager {
 
   static WebviewCookieManager _instance;
 
-  /// Check some cookies web view cookies
+  /// Gets whether there are stored cookies
   Future<bool> hasCookies() {
     return _channel
         .invokeMethod<bool>('hasCookies')
-        .then<bool>((dynamic result) => result);
-  }
-
-  /// Clear all web view cookies
-  Future<bool> clearCookies() {
-    return _channel
-        .invokeMethod<bool>('clearCookies')
-        .then<bool>((dynamic result) => result);
+        .then<bool>((bool result) => result);
   }
 
   /// Read out all cookies, or all cookies for a [currentUrl] when provided
@@ -52,6 +45,12 @@ class WebviewCookieManager {
         return c;
       }).toList();
     });
+  }
+
+  /// Remove cookies with [currentUrl] or all for cookies without url
+  Future<void> clearCookies([String currentUrl]) {
+    return _channel.invokeMethod<void>(
+        'clearCookies', <dynamic, dynamic>{'url': currentUrl});
   }
 
   /// Set [cookies] into the web view
