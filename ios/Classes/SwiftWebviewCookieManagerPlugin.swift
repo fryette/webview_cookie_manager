@@ -16,9 +16,6 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
-        case "clearCookies":
-            SwiftWebviewCookieManagerPlugin.clearCookies(result: result)
-            break
         case "getCookies":
             let arguments = call.arguments as! NSDictionary
             let url = arguments["url"] as? String
@@ -27,6 +24,14 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         case "setCookies":
             let cookies = call.arguments as! Array<NSDictionary>
             SwiftWebviewCookieManagerPlugin.setCookies(cookies: cookies, result: result)
+            break
+        case "hasCookies":
+            SwiftWebviewCookieManagerPlugin.hasCookies(result: result)
+            break
+        case "clearCookies":
+            let arguments = call.arguments as! NSDictionary
+            let url = arguments["url"] as? String
+            SwiftWebviewCookieManagerPlugin.clearCookies(url: url, result: result)
             break
         default:
             result(FlutterMethodNotImplemented)
@@ -41,13 +46,27 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         
     }
     
-    public static func clearCookies(result: @escaping FlutterResult) {
+    public static func clearCookies(url: String?, result: @escaping FlutterResult) {
         httpCookieStore!.getAllCookies { (cookies) in
-            for cookie in cookies {
-               httpCookieStore!.delete(cookie, completionHandler: nil)
+            if url == nil {
+                for cookie in cookies {
+                  httpCookieStore!.delete(cookie, completionHandler: nil)
+                }
             }
-            
-            result(true)
+            else {
+                for cookie in cookies {
+                    if cookie.domain.contains(URL(string: url!)!.host!) {
+                        httpCookieStore!.delete(cookie, completionHandler: nil)
+                    }
+                }
+            }
+            result(nil)
+        }
+    }
+    
+    public static func hasCookies(result: @escaping FlutterResult) {
+        httpCookieStore!.getAllCookies { (cookies) in
+            result(!cookies.isEmpty)
         }
     }
     
