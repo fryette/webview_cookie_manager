@@ -24,7 +24,7 @@ class WebviewCookieManager {
   }
 
   /// Read out all cookies, or all cookies for a [currentUrl] when provided
-  Future<List<Cookie>> getCookies([String currentUrl]) {
+  Future<List<Cookie>> getCookies(String currentUrl) {
     return _channel.invokeListMethod<Map<dynamic, dynamic>>(
         'getCookies', <dynamic, dynamic>{
       'url': currentUrl
@@ -57,10 +57,9 @@ class WebviewCookieManager {
     setCookies(serializedCookies);
   }
 
-  /// Remove cookies with [currentUrl] or all for cookies without url
-  Future<void> clearCookies([String currentUrl]) {
-    return _channel.invokeMethod<void>(
-        'clearCookies', <dynamic, dynamic>{'url': currentUrl});
+  /// Remove all cookies
+  Future<void> clearCookies() {
+    return _channel.invokeMethod<void>('clearCookies');
   }
 
   /// Set [cookies] into the web view
