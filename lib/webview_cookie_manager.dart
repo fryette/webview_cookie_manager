@@ -57,10 +57,9 @@ class WebviewCookieManager {
     setCookies(serializedCookies);
   }
 
-  /// Remove cookies with [currentUrl] or all for cookies without url
-  Future<void> clearCookies([String currentUrl]) {
-    return _channel.invokeMethod<void>(
-        'clearCookies', <dynamic, dynamic>{'url': currentUrl});
+  /// Remove all cookies
+  Future<void> clearCookies() {
+    return _channel.invokeMethod<void>('clearCookies');
   }
 
   /// Set [cookies] into the web view
