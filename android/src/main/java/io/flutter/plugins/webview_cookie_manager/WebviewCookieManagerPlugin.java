@@ -55,6 +55,9 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
       case "clearCookies":
         clearCookies(result);
         break;
+      case "hasCookies":
+        hasCookies(result);
+        break;
       case "getCookies":
         getCookies(methodCall, result);
         break;
@@ -71,6 +74,12 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
     channel.setMethodCallHandler(null);
   }
 
+  private static void hasCookies(final Result result) {
+    CookieManager cookieManager = CookieManager.getInstance();
+    final boolean hasCookies = cookieManager.hasCookies();
+    result.success(hasCookies);
+  }
+  
   private static void clearCookies(final Result result) {
     CookieManager cookieManager = CookieManager.getInstance();
     final boolean hasCookies = cookieManager.hasCookies();
