@@ -47,6 +47,16 @@ class WebviewCookieManager {
     });
   }
 
+  /// Remove cookies with [currentUrl] for IOS and Android
+  Future<void> removeCookie(String currentUrl) async {
+    final List<Cookie> listCookies = await getCookies(currentUrl);
+    clearCookies();
+    final List<Cookie> serializedCookies = listCookies
+        .where((element) => !currentUrl.contains(element.domain))
+        .toList();
+    setCookies(serializedCookies);
+  }
+
   /// Remove cookies with [currentUrl] or all for cookies without url
   Future<void> clearCookies([String currentUrl]) {
     return _channel.invokeMethod<void>(
