@@ -24,7 +24,7 @@ class WebviewCookieManager {
   }
 
   /// Read out all cookies, or all cookies for a [currentUrl] when provided
-  Future<List<Cookie>> getCookies([String currentUrl]) {
+  Future<List<Cookie>> getCookies(String currentUrl) {
     return _channel.invokeListMethod<Map<dynamic, dynamic>>(
         'getCookies', <dynamic, dynamic>{
       'url': currentUrl
