@@ -1,3 +1,9 @@
+## 1.0.3
+
+* Fixed `getCookies()` without a URL parameter causes NullPointerExceptions ([#11](https://github.com/amag2511/webview_cookie_manager/issues/8))
+* Added `hasCookies()` function
+* Added `removeCookie()` function
+
 ## 1.0.2
 
 * Fixed Android Cookiemanager null reference exception ([#8](https://github.com/amag2511/webview_cookie_manager/issues/8))

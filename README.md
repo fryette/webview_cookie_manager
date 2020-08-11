@@ -28,6 +28,17 @@ await cookieManager.setCookies([
                 ..httpOnly = false
             ]);
  ```
+ Check is any cookie available
+ ```dart
+await cookieManager.hasCookies();
+ ```
+
+ Remove cookie
+
+ ```dart
+ await cookieManager.removeCookie();
+ ```
+
  Clear cookies
  ```dart
 await cookieManager.clearCookies();
