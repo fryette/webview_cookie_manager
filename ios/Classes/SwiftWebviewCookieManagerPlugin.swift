@@ -97,6 +97,20 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
                     cookieList.add(_cookieToDictionary(cookie: cookie))
                 }
             }
+            // If the cookie value is empty in WKHTTPCookieStore,
+            // get the cookie value from HTTPCookieStorage
+            if cookieList.count == 0 {
+                if let cookies = HTTPCookieStorage.shared.cookies {
+                    for cookie in cookies {
+                        if url == nil {
+                            cookieList.add(_cookieToDictionary(cookie: cookie))
+                        }
+                        else if cookie.domain.contains(URL(string: url!)!.host!) {
+                            cookieList.add(_cookieToDictionary(cookie: cookie))
+                        }
+                    }
+                }
+            }
             result(cookieList)
         }
     }
