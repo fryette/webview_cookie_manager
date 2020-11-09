@@ -60,7 +60,12 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
     
     public static func hasCookies(result: @escaping FlutterResult) {
         httpCookieStore!.getAllCookies { (cookies) in
-            result(!cookies.isEmpty)
+            var isEmpty = cookies.isEmpty
+            if isEmpty {
+                // If it is empty, check whether the HTTPCookieStorage cookie is also empty.
+                isEmpty = HTTPCookieStorage.shared.cookies?.isEmpty ?? true
+            }
+            result(!isEmpty)
         }
     }
     
