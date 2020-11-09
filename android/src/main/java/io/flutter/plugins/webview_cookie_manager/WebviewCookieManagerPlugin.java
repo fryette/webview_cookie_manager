@@ -112,7 +112,7 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
     CookieManager cookieManager = CookieManager.getInstance();
 
     final String url = arguments.get("url");
-    final String allCookiesString = cookieManager.getCookie(url);
+    final String allCookiesString = url == null ? null : cookieManager.getCookie(url);
     final ArrayList<String> individualCookieStrings = allCookiesString == null ? new ArrayList<String>() : new ArrayList<String>(Arrays.asList(allCookiesString.split(";")));
 
     ArrayList<Map<String, Object>> serializedCookies = new ArrayList<>();
