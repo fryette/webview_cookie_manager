@@ -34,6 +34,15 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.ac_unit),
+              onPressed: () async {
+                // TEST CODE
+                await cookieManager.getCookies(null);
+              },
+            )
+          ],
         ),
         body: WebView(
           initialUrl: _url,
