@@ -1,3 +1,7 @@
+## 1.0.4
+* Update getCookies apply HTTPCookieStorage for iOS
+* Bump iOS min version
+
 ## 1.0.3
 
 * Fixed `getCookies()` without a URL parameter causes NullPointerExceptions ([#11](https://github.com/amag2511/webview_cookie_manager/issues/8))
