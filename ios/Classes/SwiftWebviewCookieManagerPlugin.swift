@@ -41,21 +41,31 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         for cookie in cookies {
             _setCookie(cookie: cookie, result: result)
         }
-        
     }
     
     public static func clearCookies(result: @escaping FlutterResult) {
         httpCookieStore!.getAllCookies { (cookies) in
+            for cookie in cookies {
+                httpCookieStore!.delete(cookie, completionHandler: nil)
+            }
+            // delete HTTPCookieStorage all cookies
+            if let cookies = HTTPCookieStorage.shared.cookies {
                 for cookie in cookies {
-                  httpCookieStore!.delete(cookie, completionHandler: nil)
+                    HTTPCookieStorage.shared.deleteCookie(cookie)
                 }
+            }
             result(nil)
         }
     }
     
     public static func hasCookies(result: @escaping FlutterResult) {
         httpCookieStore!.getAllCookies { (cookies) in
-            result(!cookies.isEmpty)
+            var isEmpty = cookies.isEmpty
+            if isEmpty {
+                // If it is empty, check whether the HTTPCookieStorage cookie is also empty.
+                isEmpty = HTTPCookieStorage.shared.cookies?.isEmpty ?? true
+            }
+            result(!isEmpty)
         }
     }
     
@@ -97,11 +107,25 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
                     cookieList.add(_cookieToDictionary(cookie: cookie))
                 }
             }
+            // If the cookie value is empty in WKHTTPCookieStore,
+            // get the cookie value from HTTPCookieStorage
+            if cookieList.count == 0 {
+                if let cookies = HTTPCookieStorage.shared.cookies {
+                    for cookie in cookies {
+                        if url == nil {
+                            cookieList.add(_cookieToDictionary(cookie: cookie))
+                        }
+                        else if cookie.domain.contains(URL(string: url!)!.host!) {
+                            cookieList.add(_cookieToDictionary(cookie: cookie))
+                        }
+                    }
+                }
+            }
             result(cookieList)
         }
     }
     
-    public static func  _cookieToDictionary(cookie: HTTPCookie) -> NSDictionary {
+    public static func _cookieToDictionary(cookie: HTTPCookie) -> NSDictionary {
         let result : NSMutableDictionary =  NSMutableDictionary()
         
         result.setValue(cookie.name, forKey: "name")
