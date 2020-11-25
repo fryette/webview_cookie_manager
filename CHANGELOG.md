@@ -1,4 +1,10 @@
+## 1.0.5
+
+* Fix deprecation android warnings ([#22](https://github.com/amag2511/webview_cookie_manager/issues/22))
+* Fix remove cookie cause clearing all cookies for all urls ([#23](https://github.com/amag2511/webview_cookie_manager/issues/23))
+
 ## 1.0.4
+
 * Update getCookies apply HTTPCookieStorage for iOS
 * Bump iOS min version
 
@@ -10,7 +16,7 @@
 
 ## 1.0.2
 
-* Fixed Android Cookiemanager null reference exception ([#8](https://github.com/amag2511/webview_cookie_manager/issues/8))
+* Fixed Android CookieManager null reference exception ([#8](https://github.com/amag2511/webview_cookie_manager/issues/8))
 
 ## 1.0.1
 
