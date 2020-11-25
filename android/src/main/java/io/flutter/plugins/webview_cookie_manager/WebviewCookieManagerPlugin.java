@@ -129,8 +129,7 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
                 return;
             }
 
-            cookieManager.setCookie(
-                    cookieMap.get("domain").toString(), cookieMap.get("asString").toString());
+            cookieManager.setCookie(domain, cookieMap.get("asString").toString());
         }
 
         result.success(null);
@@ -138,6 +137,7 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
 
     private static Map<String, Object> cookieToMap(HttpCookie cookie) {
         final HashMap<String, Object> resultMap = new HashMap<>();
+
         resultMap.put("name", cookie.getName());
         resultMap.put("value", cookie.getValue());
         resultMap.put("path", cookie.getPath());
