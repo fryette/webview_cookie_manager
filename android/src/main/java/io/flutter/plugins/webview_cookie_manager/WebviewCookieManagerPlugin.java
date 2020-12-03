@@ -142,6 +142,13 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
         resultMap.put("path", cookie.getPath());
         resultMap.put("domain", cookie.getDomain());
         resultMap.put("secure", cookie.getSecure());
+
+        if (!cookie.hasExpired() && !cookie.getDiscard() && cookie.getMaxAge() > 0) {
+            // translate `max-age` to `expires` by computing future expiration date
+            long expires = (System.currentTimeMillis() / 1000) + cookie.getMaxAge();
+            resultMap.put("expires", expires);
+        }
+        
         if (Build.VERSION.SDK_INT >= VERSION_CODES.N) {
             resultMap.put("httpOnly", cookie.isHttpOnly());
         }

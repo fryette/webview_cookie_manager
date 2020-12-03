@@ -19,7 +19,7 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         case "getCookies":
             let arguments = call.arguments as! NSDictionary
             let url = arguments["url"] as? String
-            SwiftWebviewCookieManagerPlugin.getCookies(url: url, result: result)
+            SwiftWebviewCookieManagerPlugin.getCookies(urlString: url, result: result)
             break
         case "setCookies":
             let cookies = call.arguments as! Array<NSDictionary>
@@ -44,6 +44,7 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
     }
     
     public static func clearCookies(result: @escaping FlutterResult) {
+
         httpCookieStore!.getAllCookies { (cookies) in
             for cookie in cookies {
                 httpCookieStore!.delete(cookie, completionHandler: nil)
@@ -96,33 +97,37 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         })
     }
     
-    public static func getCookies(url: String?, result: @escaping FlutterResult) {
-        let cookieList: NSMutableArray = NSMutableArray()
-        httpCookieStore!.getAllCookies { (cookies) in
-            for cookie in cookies {
-                if url == nil {
-                    cookieList.add(_cookieToDictionary(cookie: cookie))
-                }
-                else if cookie.domain.contains(URL(string: url!)!.host!) {
-                    cookieList.add(_cookieToDictionary(cookie: cookie))
-                }
+    public static func getCookies(urlString: String?, result: @escaping FlutterResult) {
+        // map empty string and nil to "", indicating that no filter should be applied
+        let url = urlString.map{ $0.trimmingCharacters(in: .whitespacesAndNewlines) } ?? ""
+
+        // ensure passed in url is parseable, and extract the host
+        let host = URL(string: url)?.host           
+       
+        // fetch and filter cookies from WKHTTPCookieStore
+        httpCookieStore!.getAllCookies { (wkCookies) in
+                    
+            func matches(cookie: HTTPCookie) -> Bool {
+                // nil host means unparseable url or empty string
+                let containsHost = host.map{cookie.domain.contains($0)} ?? false
+                return url == "" || containsHost
             }
+                                        
+            var cookies = wkCookies.filter{ matches(cookie: $0) }
+    
             // If the cookie value is empty in WKHTTPCookieStore,
             // get the cookie value from HTTPCookieStorage
-            if cookieList.count == 0 {
-                if let cookies = HTTPCookieStorage.shared.cookies {
-                    for cookie in cookies {
-                        if url == nil {
-                            cookieList.add(_cookieToDictionary(cookie: cookie))
-                        }
-                        else if cookie.domain.contains(URL(string: url!)!.host!) {
-                            cookieList.add(_cookieToDictionary(cookie: cookie))
-                        }
-                    }
+            if cookies.count == 0 {
+                if let httpCookies = HTTPCookieStorage.shared.cookies {
+                    cookies = httpCookies.filter{ matches(cookie: $0) }
                 }
+            } 
+            let cookieList: NSMutableArray = NSMutableArray()
+            cookies.forEach{ cookie in 
+                cookieList.add(_cookieToDictionary(cookie: cookie))
             }
             result(cookieList)
-        }
+        }                              
     }
     
     public static func _cookieToDictionary(cookie: HTTPCookie) -> NSDictionary {
