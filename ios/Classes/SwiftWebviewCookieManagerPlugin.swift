@@ -127,7 +127,7 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
                 cookieList.add(_cookieToDictionary(cookie: cookie))
             }
             result(cookieList)
-        }                              
+        }
     }
     
     public static func _cookieToDictionary(cookie: HTTPCookie) -> NSDictionary {
