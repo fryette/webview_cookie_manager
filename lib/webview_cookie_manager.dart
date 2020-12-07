@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/services.dart';
+import 'package:webview_cookie_manager/cookie.dart';
+export 'package:webview_cookie_manager/cookie.dart';
 
 class WebviewCookieManager {
   static const _channel = MethodChannel('webview_cookie_manager');
@@ -33,6 +33,7 @@ class WebviewCookieManager {
                 ..path = result['path']
                 ..domain = result['domain']
                 ..secure = result['secure']
+                ..maxAge = result['maxAge']
                 ..httpOnly = result['httpOnly'];
 
           if (result['expires'] != null) {
@@ -70,6 +71,7 @@ class WebviewCookieManager {
         'domain': c.domain,
         'secure': c.secure,
         'httpOnly': c.httpOnly,
+        'maxAge': c.maxAge,
         'asString': c.toString(),
       };
 
