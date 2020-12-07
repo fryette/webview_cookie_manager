@@ -65,10 +65,10 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
                 }
                 httpCookieStore!.delete(cookies[index], completionHandler: { () in
                     deleteCookieAt(index: index + 1)
-                })                
+                })
             }
 
-            deleteCookieAt()            
+            deleteCookieAt()
         }
     }
 
