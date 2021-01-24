@@ -47,6 +47,9 @@ await cookieManager.clearCookies();
  For more examples check example folder.
  
  ## Troubleshooting
+ 
+ 
+ Set minimum target iOS version to 11([why](https://github.com/fryette/webview_cookie_manager/issues/17#issuecomment-682382429))
  If you are using Objective C, check that PodFile have a flag use_frameworks ([why you need to do it](https://github.com/amag2511/webview_cookie_manager/issues/4#issuecomment-665508540))
  ```
 target 'Runner' do
