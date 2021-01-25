@@ -1,3 +1,7 @@
+## 1.0.6
+
+* Fix failing on get cookies on iOS ([#20](https://github.com/amag2511/webview_cookie_manager/issues/20))
+
 ## 1.0.5
 
 * Fix deprecation android warnings ([#22](https://github.com/amag2511/webview_cookie_manager/issues/22))
