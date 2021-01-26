@@ -1,3 +1,7 @@
+## 1.0.7
+
+* Fix Cannot convert value of type 'Bool' to expected argument type ([#30](https://github.com/amag2511/webview_cookie_manager/issues/30))
+
 ## 1.0.6
 
 * Fix failing on get cookies on iOS ([#20](https://github.com/amag2511/webview_cookie_manager/issues/20))
