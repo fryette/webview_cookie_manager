@@ -110,7 +110,7 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
             func matches(cookie: HTTPCookie) -> Bool {
                 // nil host means unparseable url or empty string
                 let containsHost = host.map{cookie.domain.contains($0)} ?? false
-                let containsDomain = cookie.domain.map{host.contains($0)} ?? false
+                let containsDomain = host?.contains(cookie.domain) ?? false
                 return url == "" || containsHost || containsDomain
             }
                                         
