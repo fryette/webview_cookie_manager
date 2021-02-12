@@ -13,42 +13,46 @@ class WebviewCookieManager {
 
   WebviewCookieManager._();
 
-  static WebviewCookieManager _instance;
+  static WebviewCookieManager? _instance;
 
   /// Gets whether there are stored cookies
   Future<bool> hasCookies() {
     return _channel
         .invokeMethod<bool>('hasCookies')
-        .then<bool>((bool result) => result);
+        .then<bool>((bool? result) => result ?? false);
   }
 
   /// Read out all cookies, or all cookies for a [url] when provided
   Future<List<Cookie>> getCookies(String url) {
     return _channel.invokeListMethod<Map>('getCookies', {
       'url': url
-    }).then((results) => results.map((Map result) {
-          final c =
-              Cookie(result['name'], removeInvalidCharacter(result['value']))
-                // following values optionally work on iOS only
-                ..path = result['path']
-                ..domain = result['domain']
-                ..secure = result['secure']
-                ..httpOnly = result['httpOnly'];
+    }).then((results) => results == null
+        ? <Cookie>[]
+        : results.map((Map result) {
+            final c =
+                Cookie(result['name'], removeInvalidCharacter(result['value']))
+                  // following values optionally work on iOS only
+                  ..path = result['path']
+                  ..domain = result['domain']
+                  ..secure = result['secure']
+                  ..httpOnly = result['httpOnly'];
 
-          if (result['expires'] != null) {
-            c.expires = DateTime.fromMillisecondsSinceEpoch(
-                (result['expires'] * 1000).toInt());
-          }
+            if (result['expires'] != null) {
+              c.expires = DateTime.fromMillisecondsSinceEpoch(
+                  (result['expires'] * 1000).toInt());
+            }
 
-          return c;
-        }).toList());
+            return c;
+          }).toList());
   }
 
   /// Remove cookies with [currentUrl] for IOS and Android
   Future<void> removeCookie(String currentUrl) async {
     final listCookies = await getCookies(currentUrl);
     final serializedCookies = listCookies
-        .where((element) => currentUrl.contains(element.domain))
+        .where((element) => element.domain != null
+            ? currentUrl.contains(element.domain!)
+            : false)
         .toList();
     serializedCookies
         .forEach((c) => c.expires = DateTime.fromMicrosecondsSinceEpoch(0));
@@ -74,7 +78,7 @@ class WebviewCookieManager {
       };
 
       if (c.expires != null) {
-        output['expires'] = c.expires.millisecondsSinceEpoch ~/ 1000;
+        output['expires'] = c.expires!.millisecondsSinceEpoch ~/ 1000;
       }
 
       return output;
