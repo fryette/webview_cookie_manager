@@ -1,3 +1,7 @@
+## 2.0.0-nullsafety.0
+
+* Migrate to null safety
+
 ## 1.0.7
 
 * Fix Cannot convert value of type 'Bool' to expected argument type ([#30](https://github.com/amag2511/webview_cookie_manager/issues/30))
