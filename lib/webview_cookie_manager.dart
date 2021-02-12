@@ -23,7 +23,7 @@ class WebviewCookieManager {
   }
 
   /// Read out all cookies, or all cookies for a [url] when provided
-  Future<List<Cookie>> getCookies(String url) {
+  Future<List<Cookie>> getCookies(String? url) {
     return _channel.invokeListMethod<Map>('getCookies', {
       'url': url
     }).then((results) => results == null
