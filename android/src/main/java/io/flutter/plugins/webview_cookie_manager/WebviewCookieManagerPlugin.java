@@ -123,13 +123,9 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
         CookieManager cookieManager = CookieManager.getInstance();
 
         for (Map<String, Object> cookieMap : serializedCookies) {
-            String domain = cookieMap.get("domain").toString();
-            if (domain.isEmpty()) {
-                result.error("Cookies domain is not specified", null, null);
-                return;
-            }
-
-            cookieManager.setCookie(domain, cookieMap.get("asString").toString());
+            Object domain = cookieMap.get("domain");
+            String domainString = domain == null ? "" : domain.toString();
+            cookieManager.setCookie(domainString, cookieMap.get("asString").toString());
         }
 
         result.success(null);
