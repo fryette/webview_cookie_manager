@@ -22,6 +22,7 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -33,6 +34,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.webview_cookie_manager_example"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
@@ -44,6 +46,12 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+    }
+
+    dependencies {
+        androidTestImplementation 'androidx.test:runner:1.3.0'
+        androidTestImplementation 'androidx.test:rules:1.3.0'
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     }
 }
 
