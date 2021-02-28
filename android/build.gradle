@@ -30,4 +30,7 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+    dependencies {
+        testImplementation 'junit:junit:4.12'
+    }
 }
