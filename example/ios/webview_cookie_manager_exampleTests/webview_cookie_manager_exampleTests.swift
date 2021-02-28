@@ -17,7 +17,7 @@ class webview_cookie_manager_exampleTests: XCTestCase {
         super.tearDown()
     }
 
-    func testExample() throws {
+    func testCookieWithoutDomainAttribute() throws {
         let cookie = ["name": "cookie_name", "value": "cookie_value"] as NSDictionary
         SwiftWebviewCookieManagerPlugin.setCookies(cookies: [cookie], result: { _ in })
     }
