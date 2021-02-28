@@ -1,10 +1,10 @@
 ## 2.0.0-nullsafety.0
 
-* Migrate to null safety
+* Migrate to null safety ([#32](https://github.com/amag2511/webview_cookie_manager/issues/32))
 
 ## 1.0.8
 
-* Failed to save the cookies without "domain" attribute ([#30](https://github.com/amag2511/webview_cookie_manager/issues/34))
+* Failed to save the cookies without "domain" attribute ([#34](https://github.com/amag2511/webview_cookie_manager/issues/34))
 
 ## 1.0.7
 
