@@ -43,6 +43,11 @@ await cookieManager.hasCookies();
  ```dart
 await cookieManager.clearCookies();
  ```
+ 
+  **IMPORTANT NOTE**: Domain attribute is not required according to [RFC](https://tools.ietf.org/html/rfc6265#section-5.2.3), but it is important to remember that empty domain causes undefined behavior. So it is highly reccommended to specify it this this way:
+```(Dart)
+final cookie = Cookie('cookieName', 'cookieValue')..domain = 'youtube.com';
+```
 
  For more examples check example folder.
  
