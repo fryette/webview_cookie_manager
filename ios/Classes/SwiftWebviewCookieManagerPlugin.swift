@@ -71,6 +71,7 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
     }
     
     private static func _setCookie(cookie: NSDictionary, result: @escaping FlutterResult) {
+        let domain = cookie["domain"] as? String
         let expiresDate = cookie["expires"] as? Double
         let isSecure = cookie["secure"] as? Bool
         let isHttpOnly = cookie["httpOnly"] as? Bool
@@ -78,7 +79,7 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         var properties: [HTTPCookiePropertyKey: Any] = [:]
         properties[.name] = cookie["name"] as! String
         properties[.value] = cookie["value"] as! String
-        properties[.domain] = cookie["domain"] as! String
+        properties[.domain] = domain ?? "";
         properties[.path] = cookie["path"] as? String ?? "/"
         if expiresDate != nil {
             properties[.expires] = Date(timeIntervalSince1970: expiresDate!)
