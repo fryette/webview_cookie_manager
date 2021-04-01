@@ -29,13 +29,13 @@ class WebviewCookieManager {
     }).then((results) => results == null
         ? <Cookie>[]
         : results.map((Map result) {
-            final c =
-                Cookie(result['name'], removeInvalidCharacter(result['value']))
+            final c = Cookie(result['name'] ?? '',
+                    removeInvalidCharacter(result['value'] ?? ''))
                   // following values optionally work on iOS only
                   ..path = result['path']
                   ..domain = result['domain']
-                  ..secure = result['secure']
-                  ..httpOnly = result['httpOnly'];
+                  ..secure = result['secure'] ?? false
+                  ..httpOnly = result['httpOnly'] ?? true;
 
             if (result['expires'] != null) {
               c.expires = DateTime.fromMillisecondsSinceEpoch(
