@@ -1,6 +1,6 @@
-## 2.0.0-nullsafety.0
+## 2.0.0
 
-* Migrate to null safety ([#32](https://github.com/amag2511/webview_cookie_manager/issues/32))
+* Stable null safety release ([#32](https://github.com/fryette/webview_cookie_manager/issues/32))
 
 ## 1.0.8
 
