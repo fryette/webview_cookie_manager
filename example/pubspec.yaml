@@ -7,12 +7,12 @@ version: 1.0.0+1
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  webview_flutter: ^1.0.7
+  webview_flutter: ^2.0.0-nullsafety.4
 
   webview_cookie_manager:
     # When depending on this package from a real application you should use:

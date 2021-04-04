@@ -1,6 +1,10 @@
+## 2.0.0
+
+* Stable null safety release ([#32](https://github.com/fryette/webview_cookie_manager/issues/32))
+
 ## 1.0.8
 
-* Failed to save the cookies without "domain" attribute ([#30](https://github.com/amag2511/webview_cookie_manager/issues/34))
+* Failed to save the cookies without "domain" attribute ([#34](https://github.com/amag2511/webview_cookie_manager/issues/34))
 
 ## 1.0.7
 
