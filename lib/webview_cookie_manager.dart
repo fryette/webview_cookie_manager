@@ -24,12 +24,11 @@ class WebviewCookieManager {
 
   /// Read out all cookies, or all cookies for a [url] when provided
   Future<List<Cookie>> getCookies(String? url) {
-    return _channel.invokeListMethod<Map>('getCookies', {
-      'url': url
-    }).then((results) => results == null
-        ? <Cookie>[]
-        : results.map((Map result) {
-            final c = Cookie(result['name'] ?? '',
+    return _channel.invokeListMethod<Map>('getCookies', {'url': url}).then(
+        (results) => results == null
+            ? <Cookie>[]
+            : results.map((Map result) {
+                final c = Cookie(result['name'] ?? '',
                     removeInvalidCharacter(result['value'] ?? ''))
                   // following values optionally work on iOS only
                   ..path = result['path']
@@ -37,13 +36,13 @@ class WebviewCookieManager {
                   ..secure = result['secure'] ?? false
                   ..httpOnly = result['httpOnly'] ?? true;
 
-            if (result['expires'] != null) {
-              c.expires = DateTime.fromMillisecondsSinceEpoch(
-                  (result['expires'] * 1000).toInt());
-            }
+                if (result['expires'] != null) {
+                  c.expires = DateTime.fromMillisecondsSinceEpoch(
+                      (result['expires'] * 1000).toInt());
+                }
 
-            return c;
-          }).toList());
+                return c;
+              }).toList());
   }
 
   /// Remove cookies with [currentUrl] for IOS and Android
@@ -65,9 +64,10 @@ class WebviewCookieManager {
   }
 
   /// Set [cookies] into the web view
-  Future<void> setCookies(List<Cookie> cookies) {
+  Future<void> setCookies(List<Cookie> cookies, {String? origin}) {
     final transferCookies = cookies.map((Cookie c) {
       final output = <String, dynamic>{
+        if (origin != null) 'origin': origin,
         'name': c.name,
         'value': c.value,
         'path': c.path,
