@@ -4,7 +4,7 @@ version '1.0'
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -15,7 +15,8 @@ buildscript {
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven { url "https://storage.googleapis.com/download.flutter.io" }
     }
 }
 
@@ -30,7 +31,11 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
-    dependencies {
-        testImplementation 'junit:junit:4.12'
-    }
+}
+
+dependencies {
+    // flutter plugin intellisense
+    compileOnly "io.flutter:flutter_embedding_debug:1.0.0-d1bc06f032f9d6c148ea6b96b48261d6f545004f"
+
+    testImplementation 'junit:junit:4.13.1'
 }

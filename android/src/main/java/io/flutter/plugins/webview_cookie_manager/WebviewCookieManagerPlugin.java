@@ -123,9 +123,14 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
         CookieManager cookieManager = CookieManager.getInstance();
 
         for (Map<String, Object> cookieMap : serializedCookies) {
-            Object domain = cookieMap.get("domain");
-            String domainString = domain == null ? "" : domain.toString();
-            cookieManager.setCookie(domainString, cookieMap.get("asString").toString());
+            Object origin = cookieMap.get("origin");
+            String domainString = origin instanceof String ? (String)origin : null;
+            if (domainString == null) {
+                Object domain = cookieMap.get("domain");
+                domainString = domain instanceof String ? (String)domain : "";
+            }
+            final String value = cookieMap.get("asString").toString();
+            cookieManager.setCookie(domainString, value);
         }
 
         result.success(null);
@@ -144,7 +149,7 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
             long expires = (System.currentTimeMillis() / 1000) + cookie.getMaxAge();
             resultMap.put("expires", expires);
         }
-        
+
         if (Build.VERSION.SDK_INT >= VERSION_CODES.N) {
             resultMap.put("httpOnly", cookie.isHttpOnly());
         }
