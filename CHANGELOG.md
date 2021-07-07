@@ -1,3 +1,8 @@
+## 2.0.1
+
+* feat: add origin url parameter ([#43](https://github.com/fryette/webview_cookie_manager/pull/43))
+* bugfix: Forbidden character in cookies ([#44](https://github.com/fryette/webview_cookie_manager/issues/44))
+
 ## 2.0.0
 
 * Stable null safety release ([#32](https://github.com/fryette/webview_cookie_manager/issues/32))
