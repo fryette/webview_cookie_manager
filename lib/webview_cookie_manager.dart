@@ -27,22 +27,29 @@ class WebviewCookieManager {
     return _channel.invokeListMethod<Map>('getCookies', {'url': url}).then(
         (results) => results == null
             ? <Cookie>[]
-            : results.map((Map result) {
-                final c = Cookie(result['name'] ?? '',
-                    removeInvalidCharacter(result['value'] ?? ''))
-                  // following values optionally work on iOS only
-                  ..path = result['path']
-                  ..domain = result['domain']
-                  ..secure = result['secure'] ?? false
-                  ..httpOnly = result['httpOnly'] ?? true;
+            : results
+                .map((Map result) {
+                  Cookie? c;
+                  try {
+                    c = Cookie(result['name'] ?? '',
+                        removeInvalidCharacter(result['value'] ?? ''))
+                      // following values optionally work on iOS only
+                      ..path = result['path']
+                      ..domain = result['domain']
+                      ..secure = result['secure'] ?? false
+                      ..httpOnly = result['httpOnly'] ?? true;
 
-                if (result['expires'] != null) {
-                  c.expires = DateTime.fromMillisecondsSinceEpoch(
-                      (result['expires'] * 1000).toInt());
-                }
-
-                return c;
-              }).toList());
+                    if (result['expires'] != null) {
+                      c.expires = DateTime.fromMillisecondsSinceEpoch(
+                          (result['expires'] * 1000).toInt());
+                    }
+                  } on FormatException catch (_) {
+                    c = null;
+                  }
+                  return c;
+                })
+                .whereType<Cookie>()
+                .toList());
   }
 
   /// Remove cookies with [currentUrl] for IOS and Android
