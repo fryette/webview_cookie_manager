@@ -1,3 +1,7 @@
+## 2.0.2
+
+* feat: ignore cookies with invalid values([#49](https://github.com/fryette/webview_cookie_manager/pull/49))
+
 ## 2.0.1
 
 * feat: add origin url parameter ([#43](https://github.com/fryette/webview_cookie_manager/pull/43))
