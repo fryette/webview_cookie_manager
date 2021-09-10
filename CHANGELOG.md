@@ -1,6 +1,6 @@
 ## 2.0.3
 
-* bugfix: Future returned by setCookies never finishes([#49](https://github.com/fryette/webview_cookie_manager/issues/47))
+* bugfix: Future returned by setCookies never finishes([#47](https://github.com/fryette/webview_cookie_manager/issues/47))
 
 ## 2.0.2
 
