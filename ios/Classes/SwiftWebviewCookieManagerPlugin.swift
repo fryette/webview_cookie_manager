@@ -41,6 +41,7 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         for cookie in cookies {
             _setCookie(cookie: cookie, result: result)
         }
+        result(true)
     }
     
     public static func clearCookies(result: @escaping FlutterResult) {
@@ -99,9 +100,7 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         
         let cookie = HTTPCookie(properties: properties)!
         
-        httpCookieStore!.setCookie(cookie, completionHandler: {() in
-            result(true)
-        })
+        httpCookieStore!.setCookie(cookie)
     }
     
     public static func getCookies(urlString: String?, result: @escaping FlutterResult) {
