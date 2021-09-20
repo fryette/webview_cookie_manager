@@ -1,3 +1,7 @@
+## 2.0.5
+
+* bugfix: Build error with Flutter 2.5.1([#47](https://github.com/fryette/webview_cookie_manager/issues/53))
+
 ## 2.0.4
 
 * bugfix: Fixed bug where iOS would never return future if cookie list is empty([#47](https://github.com/fryette/webview_cookie_manager/issues/47))
