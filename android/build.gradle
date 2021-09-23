@@ -34,8 +34,5 @@ android {
 }
 
 dependencies {
-    // flutter plugin intellisense
-    compileOnly "io.flutter:flutter_embedding_debug:1.0.0-b3af521a050e6ef076778bcaf16e27b2521df8f8"
-
     testImplementation 'junit:junit:4.13.1'
 }
