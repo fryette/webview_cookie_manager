@@ -1,3 +1,8 @@
+## 2.0.6
+
+* Remove engine dependency([#55](https://github.com/fryette/webview_cookie_manager/pull/55))
+* Document secure cookie usage and restructuring readme([#56](https://github.com/fryette/webview_cookie_manager/pull/56))
+
 ## 2.0.5
 
 * bugfix: Build error with Flutter 2.5.1([#47](https://github.com/fryette/webview_cookie_manager/issues/53))
