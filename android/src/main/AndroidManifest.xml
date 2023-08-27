@@ -1,3 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="io.flutter.plugins.webview_cookie_manager">
-</manifest>
+<manifest />
