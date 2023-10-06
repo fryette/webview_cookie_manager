@@ -98,9 +98,6 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
             properties[.init("HttpOnly")] = "YES"
         }
         
-        // let cookie = HTTPCookie(properties: properties)!
-        
-        // httpCookieStore!.setCookie(cookie)
         if let cookie = HTTPCookie(properties: properties) {
             // The cookie was successfully created, so you can proceed
             httpCookieStore?.setCookie(cookie)
@@ -108,8 +105,7 @@ public class SwiftWebviewCookieManagerPlugin: NSObject, FlutterPlugin {
         } else {
             // Handle the case when the cookie creation fails
             // You can print an error message or take appropriate action
-            print("Error: Failed to create the cookie ")
-            print(properties)
+            print("Error: Failed to create the cookie")
         }        
     }
     
