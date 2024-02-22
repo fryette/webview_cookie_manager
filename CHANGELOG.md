@@ -1,3 +1,7 @@
+## 2.0.7
+
+* Add missing namespace parameter 
+
 ## 2.0.6
 
 * Remove engine dependency([#55](https://github.com/fryette/webview_cookie_manager/pull/55))
