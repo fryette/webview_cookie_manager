@@ -1,19 +1,12 @@
 package io.flutter.plugins.webview_cookie_manager;
 
-import androidx.annotation.NonNull;
-
-import io.flutter.embedding.engine.plugins.FlutterPlugin;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
-import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
-
 import android.net.Uri;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
+
+import androidx.annotation.NonNull;
 
 import java.net.HttpCookie;
 import java.util.ArrayList;
@@ -21,6 +14,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
+import io.flutter.plugin.common.MethodChannel.Result;
+import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /**
  * WebviewCookieManagerPlugin
@@ -63,6 +63,7 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
                             result.success(hasCookies);
                         }
                     });
+            cookieManager.flush();
         } else {
             cookieManager.removeAllCookie();
             result.success(hasCookies);
@@ -131,6 +132,10 @@ public class WebviewCookieManagerPlugin implements FlutterPlugin, MethodCallHand
             }
             final String value = cookieMap.get("asString").toString();
             cookieManager.setCookie(domainString, value);
+        }
+
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            cookieManager.flush();
         }
 
         result.success(null);
