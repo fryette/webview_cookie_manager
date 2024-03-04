@@ -17,9 +17,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final cookieManager = WebviewCookieManager();
 
-  final String _url = 'https://youtube.com';
+  final String _url = 'https://m.youtube.com';
   final String cookieValue = 'some-cookie-value';
-  final String domain = 'youtube.com';
+  final String domain = 'm.youtube.com';
   final String cookieName = 'some_cookie_name';
 
   @override
@@ -30,6 +30,27 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    WebViewController controller = WebViewController();
+
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..loadRequest(Uri.parse(_url))
+      ..setNavigationDelegate(NavigationDelegate(
+        onPageFinished: (_) async {
+          final gotCookies = await cookieManager.getCookies(_url);
+          for (var item in gotCookies) {
+            print(item);
+          }
+        },
+      ));
+    cookieManager.setCookies([
+      Cookie(cookieName, cookieValue)
+        ..domain = domain
+        ..expires = DateTime.now().add(Duration(days: 10))
+        ..httpOnly = false
+    ]);
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -44,24 +65,7 @@ class _MyAppState extends State<MyApp> {
             )
           ],
         ),
-        body: WebView(
-          initialUrl: _url,
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (controller) async {
-            await cookieManager.setCookies([
-              Cookie(cookieName, cookieValue)
-                ..domain = domain
-                ..expires = DateTime.now().add(Duration(days: 10))
-                ..httpOnly = false
-            ]);
-          },
-          onPageFinished: (_) async {
-            final gotCookies = await cookieManager.getCookies(_url);
-            for (var item in gotCookies) {
-              print(item);
-            }
-          },
-        ),
+        body: WebViewWidget(controller: controller),
       ),
     );
   }
