@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "webview_cookie_manager",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

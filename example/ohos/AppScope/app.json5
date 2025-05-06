@@ -1,0 +1,10 @@
+{
+  "app": {
+    "bundleName": "com.example.webview_cookie_manager_example",
+    "vendor": "example",
+    "versionCode": 1,
+    "versionName": "1.0.0",
+    "icon": "$media:app_icon",
+    "label": "$string:app_name"
+  }
+}
