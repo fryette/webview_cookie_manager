@@ -25,5 +25,9 @@ flutter:
         pluginClass: WebviewCookieManagerPlugin
       ios:
         pluginClass: WebviewCookieManagerPlugin
+        sharedDarwinSource: true
+      macos:
+        pluginClass: WebviewCookieManagerPlugin
+        sharedDarwinSource: true
       ohos:
         pluginClass: WebviewCookieManagerPlugin

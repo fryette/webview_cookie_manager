@@ -33,7 +33,7 @@ class WebviewCookieManager {
                   try {
                     c = Cookie(result['name'] ?? '',
                         removeInvalidCharacter(result['value'] ?? ''))
-                      // following values optionally work on iOS only
+                      // following values optionally work on iOS and macOS
                       ..path = result['path']
                       ..domain = result['domain']
                       ..secure = result['secure'] ?? false
@@ -52,7 +52,7 @@ class WebviewCookieManager {
                 .toList());
   }
 
-  /// Remove cookies with [currentUrl] for IOS and Android
+  /// Remove cookies with [currentUrl] for iOS, macOS, and Android
   Future<void> removeCookie(String currentUrl) async {
     final listCookies = await getCookies(currentUrl);
     final serializedCookies = listCookies
