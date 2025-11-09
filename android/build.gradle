@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath 'com.android.tools.build:gradle:8.13.0'
     }
 }
 
@@ -24,9 +24,7 @@ apply plugin: 'com.android.library'
 
 android {
     namespace 'io.flutter.plugins.webview_cookie_manager'
-    compileSdk 34
-
-    namespace "io.flutter.plugins.webview_cookie_manager"
+    compileSdk 36
 
     defaultConfig {
         minSdkVersion 16
@@ -35,8 +33,10 @@ android {
         disable 'InvalidPackage'
     }
 
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
