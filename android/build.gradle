@@ -26,8 +26,6 @@ android {
     namespace 'io.flutter.plugins.webview_cookie_manager'
     compileSdk 34
 
-    namespace "io.flutter.plugins.webview_cookie_manager"
-
     defaultConfig {
         minSdkVersion 16
     }
